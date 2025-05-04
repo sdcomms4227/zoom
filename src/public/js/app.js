@@ -98,6 +98,7 @@ welcomeForm = welcome.querySelector("form");
 async function initCall(){
   welcome.hidden = true;
   call.hidden = false;
+  chat.hidden = false;
   await getMedia();
   makeConnection();
 }
@@ -117,7 +118,9 @@ welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("chat");
-  myDataChannel.addEventListener("message", (event) => console.log(event.data));
+  myDataChannel.addEventListener("message", (event) => {
+    socket.emit("chat", event.data);
+  });
   console.log("made data channel");
   const offer = await myPeerConnection.createOffer();
   await myPeerConnection.setLocalDescription(offer);
@@ -128,7 +131,9 @@ socket.on("welcome", async () => {
 socket.on("offer", async offer => {
   myPeerConnection.addEventListener("datachannel", (event) => {
     myDataChannel = event.channel;
-    myDataChannel.addEventListener("message", (event) => console.log(event.data));
+    myDataChannel.addEventListener("message", (event) => {
+      socket.emit("chat", event.data);
+    });
   });
   console.log("received the offer");
   myPeerConnection.setRemoteDescription(offer);
@@ -180,3 +185,31 @@ function handleAddStream(data) {
   const peerFace = document.getElementById("peerFace");
   peerFace.srcObject = data.stream;
 }
+
+// Chat Code
+
+const chat = document.getElementById("chat");
+const chatForm = chat.querySelector("form");
+const chatList = chat.querySelector("ul");
+
+chat.hidden = true;
+
+chatForm.addEventListener("submit", handleChatSubmit);
+
+function handleChatSubmit(event) {
+  event.preventDefault();
+  const input = chatForm.querySelector("input");
+  socket.emit("chat", input.value, roomName);
+  printChat(input.value);
+  input.value = "";
+}
+
+function printChat(message) { 
+  const li = document.createElement("li");
+  li.textContent = message;
+  chatList.appendChild(li);
+}
+
+socket.on("chat", (message) => {
+  printChat(message);
+});

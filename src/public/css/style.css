@@ -1,0 +1,91 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  max-width: 1200px;
+}
+
+#welcome {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+#welcome form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#welcome form input {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#call {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  gap: 30px;
+}
+#call[hidden] {
+  display: none;
+}
+
+#myStream {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#peerStream {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#myStream button {
+  margin: 5px;
+  padding: 8px 16px;
+}
+
+#myStream select {
+  margin: 10px 0;
+  padding: 5px;
+}
+
+#chat {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#chat ul {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  list-style: none;
+}
+
+#chat form {
+  display: flex;
+  gap: 10px;
+}
+
+#chat input {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+#chat button {
+  padding: 8px 16px;
+}

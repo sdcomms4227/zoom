@@ -5,6 +5,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Noom
     link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+    link(rel="stylesheet", href="/public/css/style.css")
   body
     header
       h1 Noom
@@ -19,6 +20,12 @@ html(lang="en")
           button#mute Mute
           button#camera Turn Camera Off
           select#cameras
+        div#peerStream
           video#peerFace(autoplay, playsinline, width="400", height="400")
+      div#chat
+        ul
+        form
+          input(type="text", placeholder="message", required)
+          button Send
     script(src="/socket.io/socket.io.js")
     script(src="/public/js/app.js")

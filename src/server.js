@@ -27,6 +27,9 @@ wsServer.on("connection", socket => {
   socket.on("ice", (ice, roomName) => {
     socket.to(roomName).emit("ice", ice);
   });
+  socket.on("chat", (message, roomName) => {
+    socket.to(roomName).emit("chat", message);
+  });
 });
 
 const handleListen = () => console.log("Listening on http://localhost:3000");
